@@ -1,5 +1,5 @@
 #!/bin/bash
-wget --no-check-certificate -O ${SERVER_DIR}/fx.tar.xz https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/15794-8682969ff3e99a09330b5fda5c9947f443455cac/fx.tar.xz
+#wget --no-check-certificate -O ${SERVER_DIR}/fx.tar.xz https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/15794-8682969ff3e99a09330b5fda5c9947f443455cac/fx.tar.xz
 CUR_V="$(find ${SERVER_DIR} -name fiveminstalled-* | cut -d '-' -f 2,3)"
 LAT_V="$(wget --no-check-certificate -q -O - ${SRV_ADR} | grep 'panel-block  is-active' | head -n 1 | cut -d '"' -f 4 | cut -c 2- | cut -d '-' -f 1 | cut -d '/' -f 2)"
 echo "${LAT_V}"
