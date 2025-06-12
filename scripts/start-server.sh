@@ -1,10 +1,7 @@
 #!/bin/bash
-#wget --no-check-certificate -O ${SERVER_DIR}/fx.tar.xz https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/15794-8682969ff3e99a09330b5fda5c9947f443455cac/fx.tar.xz
 CUR_V="$(find ${SERVER_DIR} -name fiveminstalled-* | cut -d '-' -f 2,3)"
 LAT_V="$(wget --no-check-certificate -q -O - ${SRV_ADR} | grep 'panel-block  is-active' | head -n 1 | cut -d '"' -f 4 | cut -c 2- | cut -d '-' -f 1 | cut -d '/' -f 2)"
-echo "${LAT_V}"
 DL_URL=${SRV_ADR}"$(wget --no-check-certificate -q -O - ${SRV_ADR} | grep 'panel-block  is-active' | head -n 1 | cut -d '"' -f 4 | cut -c 2-)"
-echo "${DL_URL}"
 if [ "${MANUAL_UPDATES}" == "true" ]; then
   if [ "$CUR_V" == "manual" ]; then
     if [ -f ${SERVER_DIR}/fx.tar.xz ]; then
@@ -66,8 +63,8 @@ else
     elif [ "$LAT_V" != "" ]; then
       echo "---FiveM not found, downloading!---"
       cd ${SERVER_DIR}
-      echo "---Attempting dwonload from $DL_URL---"
-      if wget -q -nc --show-progress --progress=bar:force:noscroll $DL_URL; then
+      echo "---Attempting download from $DL_URL---"
+      if wget --no-check-certificate -q -nc --show-progress --progress=bar:force:noscroll $DL_URL; then
         echo "---Download complete---"
       else
         echo "---Something went wrong, can't download FiveM, putting server in sleep mode---"
@@ -113,8 +110,8 @@ else
         rm ${SERVER_DIR}/fiveminstalled-*
       fi
       cd ${SERVER_DIR}
-      echo "---Attempting dwonload from $DL_URL---"
-      if wget -q -O fx.tar.xz -nc --show-progress --progress=bar:force:noscroll $DL_URL; then
+      echo "---Attempting download from $DL_URL---"
+      if wget --no-check-certificate -q -O fx.tar.xz -nc --show-progress --progress=bar:force:noscroll $DL_URL; then
         echo "---Download complete---"
       else
         echo "---Something went wrong, can't download FiveM, putting server in sleep mode---"
@@ -132,7 +129,7 @@ fi
 if [ ! -d "${SERVER_DIR}/resources" ]; then
   echo "---SERVER-DATA not found, downloading...---"
   cd ${SERVER_DIR}
-  wget -qO server-data.zip "http://github.com/citizenfx/cfx-server-data/archive/master.zip"
+  wget --no-check-certificate -qO server-data.zip "http://github.com/citizenfx/cfx-server-data/archive/master.zip"
   unzip -q server-data.zip
   mv ${SERVER_DIR}/cfx-server-data-master/resources ${SERVER_DIR}/resources
   rm server-data.zip && rm -R cfx-server-data-master/
@@ -147,7 +144,7 @@ if [ ! -z "${GAME_CONFIG}" ]; then
   if [ ! -f "${SERVER_DIR}/server.cfg" ]; then
     echo "---No server.cfg found, downloading...---"
     cd ${SERVER_DIR}
-    wget -q -nc --show-progress --progress=bar:force:noscroll server.cfg "https://raw.githubusercontent.com/ich777/docker-fivem-server/master/configs/server.cfg"
+    wget --no-check-certificate -q -nc --show-progress --progress=bar:force:noscroll server.cfg "https://raw.githubusercontent.com/ich777/docker-fivem-server/master/configs/server.cfg"
   fi
 fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
